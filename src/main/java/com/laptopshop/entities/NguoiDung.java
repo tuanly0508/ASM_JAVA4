@@ -21,27 +21,25 @@ public class NguoiDung {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String email;
-	
+
 	@JsonIgnore
 	private String password;
-	
+
 	@Transient
 	@JsonIgnore
 	private String confirmPassword;
 	private String hoTen;
 	private String soDienThoai;
 	private String diaChi;
-	
+
 	@ManyToMany
-	@JoinTable(name="nguoidung_vaitro",
-	           joinColumns=@JoinColumn(name="ma_nguoi_dung"), 
-	           inverseJoinColumns=@JoinColumn(name="ma_vai_tro"))
+	@JoinTable(name = "nguoidung_vaitro", joinColumns = @JoinColumn(name = "ma_nguoi_dung"), inverseJoinColumns = @JoinColumn(name = "ma_vai_tro"))
 	private Set<VaiTro> vaiTro;
-	
+
 	@Transient
 	@JsonIgnore
 	private List<DonHang> listDonHang;
-	
+
 	public List<DonHang> getListDonHang() {
 		return listDonHang;
 	}
@@ -105,7 +103,6 @@ public class NguoiDung {
 	public void setVaiTro(Set<VaiTro> vaiTro) {
 		this.vaiTro = vaiTro;
 	}
-	
 
 	public long getId() {
 		return id;
@@ -119,15 +116,14 @@ public class NguoiDung {
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	public NguoiDung() {
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	@Override
 	public String toString() {
 		return "NguoiDung [id=" + id + ", email=" + email + ", password=" + password + ", confirmPassword="
 				+ confirmPassword + ", hoTen=" + hoTen + ", soDienThoai=" + soDienThoai + ", diaChi=" + diaChi;
-	}	
+	}
 }

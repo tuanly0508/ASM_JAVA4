@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Quản lý nhãn hiệu</title>
+<title>Quản lý thong ke</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script>
@@ -32,26 +32,25 @@
 				console.log("Error", e);
 			}
 		});
-
 		var canvas = document.getElementById('myChart');
-		
-		
 		data = {
 			labels : label,
 			datasets : [ {
 				label : "Tổng giá trị ( Triệu đồng)",
-				backgroundColor : "#0000ff",
-				borderColor : "#0000ff",
-				borderWidth : 2,
+				backgroundColor : "#5b94f0",
+				borderColor : "#cfd162",
+				borderWidth : 5,
 				hoverBackgroundColor : "#0043ff",
 				hoverBorderColor : "#0043ff",
 				data : dataForDataSets,
+				pointRadius: 5,
+				fill: false
 			} ]
 		};
 		var option = {
 			scales : {
 				yAxes : [ {
-					stacked : true,
+					stacked : false,
 					gridLines : {
 						display : true,
 						color : "rgba(255,99,132,0.2)"
@@ -60,24 +59,48 @@
 				xAxes : [ {
 					barPercentage: 0.5,
 					gridLines : {
-						display : false
+						display : true
 					}
 				} ]
 			},
 			maintainAspectRatio: false,
 			legend: {
 	            labels: {
-	                // This more specific font property overrides the global property
 	                fontSize: 20
 	            }
+			},
+			interaction: {
+				intersect: false,
+				mode: 'index',
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: (ctx) => 'Tooltip point style: ' + ctx.chart.options.plugins.tooltip.usePointStyle,
+				},
+				tooltip: {
+					usePointStyle: true,
+					callbacks: {
+						footer: footer,
+					}
+				}
 			}
-		};
+		};		
 
-		var myBarChart = Chart.Bar(canvas, {
+		var myBarChart = Chart.Line(canvas, {
 			data : data,
 			options : option
 		});
 	}
+
+	const footer = (tooltipItems) => {
+		let sum = 0;
+
+		tooltipItems.forEach(function (tooltipItem) {
+			sum += tooltipItem.parsed.y;
+		});
+		return 'Sum: ' + sum;
+	};
 </script>
 
 </head>
@@ -97,6 +120,7 @@
 	<jsp:include page="template/footer.jsp"></jsp:include>
 
 	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js">
+	</script>
 </body>
 </html>

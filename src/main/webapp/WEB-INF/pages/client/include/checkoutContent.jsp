@@ -28,7 +28,7 @@
 	<div class = "row">
 	<br><br>
 		<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<div class="col-md-3" >
+		<!-- <div class="col-md-3" >
 			<br>
 			<p class="border-p" style="line-height:1.5;"><b>Thông tin khách hàng</b></p>
 			
@@ -45,7 +45,7 @@
 			<textarea rows="5" cols="29" disabled>${user.diaChi}</textarea>
 						
 			<br><br>
-		</div>
+		</div> -->
 		</c:if>
 		<div class="col-md-3">
 			<br>

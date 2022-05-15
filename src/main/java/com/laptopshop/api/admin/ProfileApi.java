@@ -22,57 +22,55 @@ import com.laptopshop.entities.NguoiDung;
 import com.laptopshop.entities.ResponseObject;
 import com.laptopshop.service.NguoiDungService;
 
-
 @RestController
 @RequestMapping("/api/profile")
 public class ProfileApi {
 
-	@Autowired
-	private NguoiDungService nguoiDungService;
+    @Autowired
+    private NguoiDungService nguoiDungService;
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-	@GetMapping("/{id}")
-	public NguoiDung getNguoiDungById(@PathVariable long id) {
-		NguoiDung nd = nguoiDungService.findById(id);
-		return nd;
-	}
+    @GetMapping("/{id}")
+    public NguoiDung getNguoiDungById(@PathVariable long id) {
+        NguoiDung nd = nguoiDungService.findById(id);
+        return nd;
+    }
 
-	@PostMapping("/doiMatKhau")
-	public ResponseObject changePass(@RequestBody @Valid PasswordDTO dto, BindingResult result,
-			HttpServletRequest request) {
-		System.out.println(dto.toString());
-		NguoiDung currentUser = getSessionUser(request);
+    @PostMapping("/doiMatKhau")
+    public ResponseObject changePass(@RequestBody @Valid PasswordDTO dto, BindingResult result,
+            HttpServletRequest request) {
+        NguoiDung currentUser = getSessionUser(request);
 
-		ResponseObject ro = new ResponseObject();
-		
-		if (!passwordEncoder.matches( dto.getOldPassword(), currentUser.getPassword())) {
-			result.rejectValue("oldPassword", "error.oldPassword", "Mật khẩu cũ không đúng");
-		}
+        ResponseObject ro = new ResponseObject();
 
-		if (!dto.getNewPassword().equals(dto.getConfirmNewPassword())) {
-			result.rejectValue("confirmNewPassword", "error.confirmNewPassword", "Nhắc lại mật khẩu mới không đúng");
-		}
+        if (!passwordEncoder.matches(dto.getOldPassword(), currentUser.getPassword())) {
+            result.rejectValue("oldPassword", "error.oldPassword", "Mật khẩu cũ không đúng");
+        }
 
-		if (result.hasErrors()) {
-			Map<String, String> errors = new HashMap<>();
-		    List<FieldError> errorsList = result.getFieldErrors();
-		    for (FieldError error : errorsList ) {
-		        errors.put(error.getField(), error.getDefaultMessage());
-		    }
-			ro.setErrorMessages(errors);
-			ro.setStatus("fail");
-			errors = null;
-		} else {
-			nguoiDungService.changePass(currentUser, dto.getNewPassword());
-			ro.setStatus("success");
-		}
-		
-		return ro;
-	}
+        if (!dto.getNewPassword().equals(dto.getConfirmNewPassword())) {
+            result.rejectValue("confirmNewPassword", "error.confirmNewPassword", "Nhắc lại mật khẩu mới không đúng");
+        }
 
-	public NguoiDung getSessionUser(HttpServletRequest request) {
-		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
-	}
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            List<FieldError> errorsList = result.getFieldErrors();
+            for (FieldError error : errorsList) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            ro.setErrorMessages(errors);
+            ro.setStatus("fail");
+            errors = null;
+        } else {
+            nguoiDungService.changePass(currentUser, dto.getNewPassword());
+            ro.setStatus("success");
+        }
+
+        return ro;
+    }
+
+    public NguoiDung getSessionUser(HttpServletRequest request) {
+        return (NguoiDung) request.getSession().getAttribute("loggedInUser");
+    }
 }

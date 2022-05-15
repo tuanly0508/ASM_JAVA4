@@ -286,7 +286,7 @@
 	<script type="text/javascript">
 		$(function() {
 			
-			if (${param.trangThai != null}){
+			if (${param.trangThai != null}) {
 				$("#trangThai").val('${param.trangThai}');
  				console.log('${param.trangThai}'); 
 			};

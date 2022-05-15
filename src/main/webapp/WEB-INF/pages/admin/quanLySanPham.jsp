@@ -28,7 +28,13 @@
 					<option value="${danhMuc.id }">${danhMuc.tenDanhMuc }</option>
 				</c:forEach>
 			</select>
+			<div class="form-group form-inline" style="float: right; margin-right: 10px; top: 0px; position: relative;"">
+								<input class=" form-control" type="text" id="searchById" placeholder="Nhập mã để tìm nhanh"> <span
+					class="glyphicon glyphicon-search" aria-hidden="true" style="left: -30px; top: 4px;"></span>
+			</div>
 		</div>
+
+		
 		<hr>
 
 		<form class="form-inline" id="searchForm" name="searchObject">
@@ -72,13 +78,7 @@
 				sản phẩm</button>
 		</form>
 
-		<div class="form-group form-inline"
-			style="float: right; margin-right: 10px; top: -33px; position: relative;"">
-			<input class="form-control" type="text" id="searchById"
-				placeholder="Nhập mã để tìm nhanh"> <span
-				class="glyphicon glyphicon-search" aria-hidden="true"
-				style="left: -30px; top: 4px;"></span>
-		</div>
+		
 
 		<hr />
 		<table class="table table-hover sanPhamTable "

@@ -34,11 +34,6 @@
             <a href='<c:url value="/admin/danh-muc"/>'>
               <span class="glyphicon glyphicon-tasks">&nbsp;</span>Quản lý Danh Mục</a>
           </li>
-          
-          <li class="side-bar">
-            <a href='<c:url value="/admin/nhan-hieu"/>' >
-              <span class="glyphicon glyphicon-flag">&nbsp;</span>Quản lý Nhãn hiệu</a>
-          </li>
 
           <li class="side-bar main-menu">
             <a href="<c:url value='/admin/tai-khoan' />">
@@ -46,22 +41,28 @@
           </li>
           
           <li class="side-bar main-menu">
-            <a href="<c:url value='/admin/lien-he' />">
-              <span class="glyphicon glyphicon-envelope">&nbsp;</span>Quản lý Liên Hệ</a>
-          </li>
-          
-          <li class="side-bar main-menu">
             <a href="<c:url value='/admin/thong-ke' />">
               <span class="glyphicon glyphicon-signal">&nbsp;</span>Thống kê</a>
           </li>
           
-          <li class="side-bar">
-            <a href="<c:url value='/admin/profile' />">
-              <span class="glyphicon glyphicon-user">&nbsp;</span>Thông tin cá nhân</a>
-          </li>
+          <li class="side-bar"> 
+            <a href="<c:url value='/admin/profile' />"> 
+              <span class="glyphicon glyphicon-user">&nbsp;</span>Thông tin cá nhân</a> 
+          </li> 
 
         </ul>
       </div>
     </div>
     
     <script src="<c:url value='/js/admin.js'/>" ></script>
+
+    
+          <!-- <li class="side-bar">
+                      <a href='<c:url value="/admin/nhan-hieu"/>'>
+                        <span class="glyphicon glyphicon-flag">&nbsp;</span>Quản lý Nhãn hiệu</a>
+                    </li>
+                    
+                    <li class="side-bar main-menu">
+                      <a href="<c:url value='/admin/lien-he' />">
+                        <span class="glyphicon glyphicon-envelope">&nbsp;</span>Quản lý Liên Hệ</a>
+                    </li> -->

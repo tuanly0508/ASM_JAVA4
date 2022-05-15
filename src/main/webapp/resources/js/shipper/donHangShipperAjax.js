@@ -76,7 +76,7 @@ $(document).ready(function() {
     
     // event khi click vào phân trang Đơn hàng
 	$(document).on('click', '.pageNumber', function (event){
-//		event.preventDefault();
+		//event.preventDefault();
 		var page = $(this).text();	
     	$('.donHangTable tbody tr').remove();
     	$('.pagination li').remove();

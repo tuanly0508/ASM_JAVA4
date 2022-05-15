@@ -46,7 +46,7 @@ public class AdminController {
 
 	@Autowired
 	private VaiTroService vaiTroService;
-	
+
 	@Autowired
 	private LienHeService lienHeService;
 
@@ -65,7 +65,7 @@ public class AdminController {
 		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Chờ duyệt"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
-		
+
 		model.addAttribute("listCongViec", listCongViec);
 		return "admin/trangAdmin";
 	}
@@ -84,28 +84,12 @@ public class AdminController {
 	public String quanLyLienHePage() {
 		return "admin/quanLyLienHe";
 	}
-	
+
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
 		model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		return "admin/quanLySanPham";
-	}
-
-	@GetMapping("/profile")
-	public String profilePage(Model model, HttpServletRequest request) {
-		model.addAttribute("user", getSessionUser(request));
-		return "admin/profile";
-	}
-
-	@PostMapping("/profile/update")
-	public String updateNguoiDung(@ModelAttribute NguoiDung nd, HttpServletRequest request) {
-		NguoiDung currentUser = getSessionUser(request);
-		currentUser.setDiaChi(nd.getDiaChi());
-		currentUser.setHoTen(nd.getHoTen());
-		currentUser.setSoDienThoai(nd.getSoDienThoai());
-		nguoiDungService.updateUser(currentUser);
-		return "redirect:/admin/profile";
 	}
 
 	@GetMapping("/don-hang")
@@ -123,19 +107,33 @@ public class AdminController {
 
 	@GetMapping("/tai-khoan")
 	public String quanLyTaiKhoanPage(Model model) {
-	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
+		model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
 		return "admin/quanLyTaiKhoan";
 	}
-	
+
 	@GetMapping("/thong-ke")
 	public String thongKePage(Model model) {
 		return "admin/thongKe";
 	}
-	
+
 	public NguoiDung getSessionUser(HttpServletRequest request) {
 		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
 	}
-	
-	
+
+	@GetMapping("/profile")
+	public String profilePage(Model model, HttpServletRequest request) {
+		model.addAttribute("user", getSessionUser(request));
+		return "admin/profile";
+	}
+
+	@PostMapping("/profile/update")
+	public String updateNguoiDung(@ModelAttribute NguoiDung nd, HttpServletRequest request) {
+		NguoiDung currentUser = getSessionUser(request);
+		currentUser.setDiaChi(nd.getDiaChi());
+		currentUser.setHoTen(nd.getHoTen());
+		currentUser.setSoDienThoai(nd.getSoDienThoai());
+		nguoiDungService.updateUser(currentUser);
+		return "redirect:/admin/profile";
+	}
 
 }
