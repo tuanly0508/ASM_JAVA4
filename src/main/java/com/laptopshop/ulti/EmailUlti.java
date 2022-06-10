@@ -10,26 +10,24 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailUlti {
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
 
 	public void sendEmail(String diaChiDen, String tieuDe, String noiDung) {
 		MimeMessage message = mailSender.createMimeMessage();
-		
+
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			helper.setTo(diaChiDen);
 			helper.setSubject(tieuDe);
-			helper.setText(noiDung);		
-			
+			helper.setText(noiDung);
+
 			mailSender.send(message);
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
 
 }

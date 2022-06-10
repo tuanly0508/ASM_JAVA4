@@ -14,7 +14,23 @@
 		var data = [];
 		var label = [];
 		var dataForDataSets = [];
-
+		var dataForOrder = [];
+		$.ajax({
+			async:false,
+			type: "GET",
+			data: data,
+			contentType: "application/json",
+			url: "http://localhost:8080/laptopshop/api/don-hang/amountOrder",
+			success: function (data) {
+				for (var i = 0; i < data.length; i++) {
+					dataForOrder.push(data[i][2]);
+				}
+			},
+			error: function (e) {
+				alert("Error: ", e);
+				console.log("Error", e);
+			}
+		});
 		$.ajax({
 			async : false,
 			type : "GET",
@@ -35,17 +51,30 @@
 		var canvas = document.getElementById('myChart');
 		data = {
 			labels : label,
-			datasets : [ {
-				label : "Tổng giá trị ( Triệu đồng)",
-				backgroundColor : "#5b94f0",
-				borderColor : "#cfd162",
-				borderWidth : 5,
-				hoverBackgroundColor : "#0043ff",
-				hoverBorderColor : "#0043ff",
-				data : dataForDataSets,
-				pointRadius: 5,
-				fill: false
-			} ]
+			datasets : [ 
+				{
+					label : "Tổng giá trị (Triệu đồng)",
+					backgroundColor : "#5b94f0",
+					borderColor : "#5b94f0",
+					borderWidth : 5,
+					hoverBackgroundColor : "#0043ff",
+					hoverBorderColor : "#0043ff",
+					data : dataForDataSets,
+					pointRadius: 5,
+					fill: false
+				},
+				{
+					label: "Số lượng đơn hàng",
+					backgroundColor: "#ff6347",
+					borderColor: "#ff6347",
+					borderWidth: 5,
+					hoverBackgroundColor: "#0043ff",
+					hoverBorderColor: "#0043ff",
+					data: dataForOrder,
+					pointRadius: 5,
+					fill: false
+				}
+			]
 		};
 		var option = {
 			scales : {

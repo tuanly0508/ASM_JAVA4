@@ -28,6 +28,7 @@ import com.laptopshop.service.DonHangService;
 import com.laptopshop.service.HangSanXuatService;
 import com.laptopshop.service.LienHeService;
 import com.laptopshop.service.NguoiDungService;
+import com.laptopshop.service.PostService;
 import com.laptopshop.service.VaiTroService;
 
 @Controller
@@ -73,6 +74,11 @@ public class AdminController {
 	@GetMapping("/danh-muc")
 	public String quanLyDanhMucPage() {
 		return "admin/quanLyDanhMuc";
+	}
+
+	@GetMapping("/post")
+	public String quanLyPostPage() {
+		return "admin/post";
 	}
 
 	@GetMapping("/nhan-hieu")

@@ -30,7 +30,6 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 				try {
 					redirectStrategy.sendRedirect(request, response, "/");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else if (authority.getAuthority().contains("ROLE_ADMIN")) {

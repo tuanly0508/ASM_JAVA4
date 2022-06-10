@@ -159,7 +159,6 @@ public class DonHang {
 	}
 
 	public DonHang() {
-		// TODO Auto-generated constructor stub
 	}
 
 }

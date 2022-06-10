@@ -83,21 +83,27 @@ public class DonHangServiceImpl implements DonHangService {
 	public List<Object> layDonHangTheoThangVaNam() {
 		return donHangRepo.layDonHangTheoThangVaNam();
 	}
-	
+
+	@Override
+	public List<Object> laySoLuongDonHangTheoThangVaNam() {
+		return donHangRepo.laySoLuongDonHangTheoThangVaNam();
+	}
+
 	@Override
 	public List<DonHang> getDonHangByNguoiDung(NguoiDung ng) {
 		return donHangRepo.findByNguoiDat(ng);
 	}
 
 	@Override
-	public Page<DonHang> findDonHangByShipper(SearchDonHangObject object, int page, int size, NguoiDung shipper) throws ParseException {
+	public Page<DonHang> findDonHangByShipper(SearchDonHangObject object, int page, int size, NguoiDung shipper)
+			throws ParseException {
 		BooleanBuilder builder = new BooleanBuilder();
 
 		String trangThaiDon = object.getTrangThaiDon();
 		String tuNgay = object.getTuNgay();
 		String denNgay = object.getDenNgay();
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-		
+
 		builder.and(QDonHang.donHang.shipper.eq(shipper));
 
 		if (!trangThaiDon.equals("")) {

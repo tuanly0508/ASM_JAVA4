@@ -18,11 +18,19 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long>, Queryds
 			+ " from DonHang dh, ChiTietDonHang ct"
 			+ " where dh.id = ct.donHang.id and dh.trangThaiDonHang ='Hoàn thành'"
 			+ " group by DATE_FORMAT(dh.ngayNhanHang, '%Y%m')"
-			+ " order by year asc" )
+			+ " order by month asc")
 	public List<Object> layDonHangTheoThangVaNam();
-	
+
+	@Query(value = "select DATE_FORMAT(dh.ngayNhanHang, '%m') as month, "
+			+ " DATE_FORMAT(dh.ngayNhanHang, '%Y') as year, count(dh.trangThaiDonHang) as total "
+			+ " from DonHang dh, ChiTietDonHang ct"
+			+ " where dh.id = ct.donHang.id and dh.trangThaiDonHang ='Hoàn thành'"
+			+ " group by DATE_FORMAT(dh.ngayNhanHang, '%Y%m')"
+			+ " order by month asc")
+	public List<Object> laySoLuongDonHangTheoThangVaNam();
+
 	public List<DonHang> findByNguoiDat(NguoiDung ng);
-	
+
 	public int countByTrangThaiDonHang(String trangThaiDonHang);
-	
+
 }

@@ -14,19 +14,21 @@ public interface DonHangService {
 	Page<DonHang> getAllDonHangByFilter(SearchDonHangObject object, int page) throws ParseException;
 
 	DonHang update(DonHang dh);
-	
+
 	DonHang findById(long id);
-	
-	Page<DonHang> findDonHangByShipper(SearchDonHangObject object, int page, int size, NguoiDung shipper) throws ParseException;
+
+	Page<DonHang> findDonHangByShipper(SearchDonHangObject object, int page, int size, NguoiDung shipper)
+			throws ParseException;
 
 	DonHang save(DonHang dh);
-	
+
 	List<Object> layDonHangTheoThangVaNam();
+
+	List<Object> laySoLuongDonHangTheoThangVaNam();
 
 	List<DonHang> findByTrangThaiDonHangAndShipper(String string, NguoiDung shipper);
 
-	
 	List<DonHang> getDonHangByNguoiDung(NguoiDung currentUser);
-	
+
 	int countByTrangThaiDonHang(String trangThaiDonHang);
 }

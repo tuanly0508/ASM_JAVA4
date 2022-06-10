@@ -75,11 +75,11 @@ public class DonHangApi {
 	public void xacNhanHoanThanhDon(@RequestParam("donHangId") long donHangId,
 			@RequestParam("ghiChu") String ghiChuAdmin) {
 		DonHang dh = donHangService.findById(donHangId);
-		
-		for(ChiTietDonHang ct : dh.getDanhSachChiTiet()) {
+
+		for (ChiTietDonHang ct : dh.getDanhSachChiTiet()) {
 			SanPham sp = ct.getSanPham();
 			sp.setDonViBan(sp.getDonViBan() + ct.getSoLuongNhanHang());
-			sp.setDonViKho(sp.getDonViKho() - ct.getSoLuongNhanHang() );
+			sp.setDonViKho(sp.getDonViKho() - ct.getSoLuongNhanHang());
 		}
 		dh.setTrangThaiDonHang("Hoàn thành");
 		String ghiChu = dh.getGhiChu();
@@ -102,5 +102,10 @@ public class DonHangApi {
 	@GetMapping("/report")
 	public List<Object> test() {
 		return donHangService.layDonHangTheoThangVaNam();
+	}
+
+	@GetMapping("/amountOrder")
+	public List<Object> order() {
+		return donHangService.laySoLuongDonHangTheoThangVaNam();
 	}
 }
