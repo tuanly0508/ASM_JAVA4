@@ -35,6 +35,11 @@
             <a href='<c:url value="/admin/danh-muc"/>'>
               <span class="glyphicon glyphicon-list">&nbsp;</span>Quản lý Danh Mục</a>
           </li>
+
+          <li class="side-bar">
+            <a href='<c:url value="/admin/post"/>'>
+              <span class="glyphicon glyphicon-list">&nbsp;</span>Quản lý Post</a>
+          </li>
           
           <li class="side-bar">
             <a href='<c:url value="/admin/nhan-hieu"/>' >

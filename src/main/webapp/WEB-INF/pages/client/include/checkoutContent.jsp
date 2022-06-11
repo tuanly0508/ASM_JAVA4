@@ -19,7 +19,7 @@
 			  $(this).html(value);
 			});
 	  });
-	</script>
+</script>
 
 <body>
 
@@ -28,6 +28,7 @@
 	<div class = "row">
 	<br><br>
 		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			
 		<!-- <div class="col-md-3" >
 			<br>
 			<p class="border-p" style="line-height:1.5;"><b>Thông tin khách hàng</b></p>
@@ -50,6 +51,7 @@
 		<div class="col-md-3">
 			<br>
 			<p class="border-p" style="line-height:1.5;"><b>Thông tin nhận hàng</b></p>
+			<input hidden size="27" value="${user.email}" id="emailSendOrder" disabled>
 		
 			<p style="line-height:2;" >Họ tên người nhận hàng *</p>
 			<input size="27" name="hoTenNguoiNhan" required>

@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.laptopshop.entities.NguoiDung;
 import com.laptopshop.entities.VaiTro;
 
-public interface NguoiDungRepository extends JpaRepository<NguoiDung, Long>{
+public interface NguoiDungRepository extends JpaRepository<NguoiDung, Long> {
 
 	NguoiDung findByEmail(String email);
+
+	NguoiDung findByCodeEmail(String codeEmail);
 
 	Page<NguoiDung> findByVaiTro(Set<VaiTro> vaiTro, Pageable of);
 

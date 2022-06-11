@@ -50,6 +50,11 @@
               <span class="glyphicon glyphicon-user">&nbsp;</span>Thông tin cá nhân</a> 
           </li> 
 
+          <li class="side-bar">
+            <a href='<c:url value="/admin/post"/>'>
+              <span class="glyphicon glyphicon-tasks">&nbsp;</span>Quản lý Post</a>
+          </li>
+
         </ul>
       </div>
     </div>

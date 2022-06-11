@@ -31,6 +31,7 @@ public class NguoiDung {
 	private String hoTen;
 	private String soDienThoai;
 	private String diaChi;
+	private String codeEmail;
 
 	@ManyToMany
 	@JoinTable(name = "nguoidung_vaitro", joinColumns = @JoinColumn(name = "ma_nguoi_dung"), inverseJoinColumns = @JoinColumn(name = "ma_vai_tro"))
@@ -96,6 +97,14 @@ public class NguoiDung {
 		this.diaChi = diaChi;
 	}
 
+	public String getCodeEmail() {
+		return codeEmail;
+	}
+
+	public void setCodeEmail(String codeEmail) {
+		this.codeEmail = codeEmail;
+	}
+
 	public Set<VaiTro> getVaiTro() {
 		return vaiTro;
 	}
@@ -124,6 +133,7 @@ public class NguoiDung {
 	@Override
 	public String toString() {
 		return "NguoiDung [id=" + id + ", email=" + email + ", password=" + password + ", confirmPassword="
-				+ confirmPassword + ", hoTen=" + hoTen + ", soDienThoai=" + soDienThoai + ", diaChi=" + diaChi;
+				+ confirmPassword + ", hoTen=" + hoTen + ", soDienThoai=" + soDienThoai + ", diaChi=" + diaChi
+				+ ", codeEmail=" + codeEmail;
 	}
 }

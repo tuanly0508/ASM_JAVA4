@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -28,27 +29,30 @@ import com.laptopshop.entities.DonHang;
 import com.laptopshop.entities.NguoiDung;
 import com.laptopshop.entities.ResponseObject;
 import com.laptopshop.entities.SanPham;
+import com.laptopshop.repository.NguoiDungRepository;
 import com.laptopshop.service.DonHangService;
 import com.laptopshop.service.NguoiDungService;
 import com.laptopshop.service.SanPhamService;
+import com.laptopshop.ulti.EmailSenderService;
 
 @Controller
 @SessionAttributes("loggedInUser")
 @RequestMapping("/")
 
 public class ClientAccountController {
-	
+
 	@Autowired
-	private SanPhamService sanPhamService;
+	private EmailSenderService senderService;
+
+	@Autowired
+	private NguoiDungRepository repo;
 
 	@Autowired
 	private NguoiDungService nguoiDungService;
-	
+
 	@Autowired
 	private DonHangService donHangService;
-	
-	
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -61,18 +65,18 @@ public class ClientAccountController {
 	public NguoiDung getSessionUser(HttpServletRequest request) {
 		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
 	}
-	
+
 	@GetMapping("/account")
 	public String accountPage(HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		model.addAttribute("user", currentUser);
 		List<DonHang> list = Lists.reverse(donHangService.getDonHangByNguoiDung(currentUser));
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		return "client/account";
 	}
-	
+
 	@GetMapping("/changeInformation")
-	public String clientChangeInformationPage(HttpServletRequest res,Model model) {
+	public String clientChangeInformationPage(HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		model.addAttribute("user", currentUser);
 		return "client/information";
@@ -82,10 +86,10 @@ public class ClientAccountController {
 	public String clientChangePasswordPage() {
 		return "client/passwordChange";
 	}
-	
+
 	@PostMapping("/updateInfo")
 	@ResponseBody
-	public ResponseObject commitChange(HttpServletRequest res,@RequestBody NguoiDung ng) {
+	public ResponseObject commitChange(HttpServletRequest res, @RequestBody NguoiDung ng) {
 		NguoiDung currentUser = getSessionUser(res);
 		currentUser.setHoTen(ng.getHoTen());
 		currentUser.setSoDienThoai(ng.getSoDienThoai());
@@ -93,12 +97,23 @@ public class ClientAccountController {
 		nguoiDungService.updateUser(currentUser);
 		return new ResponseObject();
 	}
-	
+
+	@PostMapping("/updateCode")
+	@ResponseBody
+	public ResponseObject codeChange(HttpServletRequest res, @RequestBody NguoiDung ng) {
+		NguoiDung currentUser = getSessionUser(res);
+		currentUser.setCodeEmail(ng.getCodeEmail());
+		nguoiDungService.updateUser(currentUser);
+		senderService.sendSimpleEmail(ng.getEmail(), ng.getEmail(), "" +
+				ng.getCodeEmail() + "");
+		return new ResponseObject();
+	}
+
 	@PostMapping("/updatePassword")
 	@ResponseBody
-	public ResponseObject passwordChange(HttpServletRequest res,@RequestBody PasswordDTO dto) {
+	public ResponseObject passwordChange(HttpServletRequest res, @RequestBody PasswordDTO dto) {
 		NguoiDung currentUser = getSessionUser(res);
-		if (!passwordEncoder.matches( dto.getOldPassword(), currentUser.getPassword())) {
+		if (!passwordEncoder.matches(dto.getOldPassword(), currentUser.getPassword())) {
 			ResponseObject re = new ResponseObject();
 			re.setStatus("old");
 			return re;
@@ -107,4 +122,18 @@ public class ClientAccountController {
 		return new ResponseObject();
 	}
 
+	@PostMapping("/updateCodePassword")
+	@ResponseBody
+	public ResponseObject passwordChangeCode(HttpServletRequest res, @RequestBody PasswordDTO dto) {
+		NguoiDung code = repo.findByCodeEmail(dto.getCode());
+		NguoiDung currentUser = getSessionUser(res);
+		if (code == null) {
+			ResponseObject re = new ResponseObject();
+			re.setStatus("code");
+			return re;
+			// throw new UsernameNotFoundException("Code was not be found");
+		}
+		nguoiDungService.changePass(currentUser, dto.getNewPassword());
+		return new ResponseObject();
+	}
 }

@@ -38,6 +38,11 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 	}
 
 	@Override
+	public NguoiDung findByCodeEmail(String codeEmail) {
+		return nguoiDungRepo.findByCodeEmail(codeEmail);
+	}
+
+	@Override
 	public NguoiDung findByConfirmationToken(String confirmationToken) {
 		return null;
 	}
@@ -69,7 +74,7 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 	}
 
 	@Override
-	public Page<NguoiDung> getNguoiDungByVaiTro(Set<VaiTro> vaiTro,  int page) {
+	public Page<NguoiDung> getNguoiDungByVaiTro(Set<VaiTro> vaiTro, int page) {
 		return nguoiDungRepo.findByVaiTro(vaiTro, PageRequest.of(page - 1, 6));
 	}
 
@@ -86,11 +91,11 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 		nd.setEmail(dto.getEmail());
 		nd.setSoDienThoai(dto.getSdt());
 		nd.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-		
-		Set<VaiTro> vaiTro  = new HashSet<>();
+
+		Set<VaiTro> vaiTro = new HashSet<>();
 		vaiTro.add(vaiTroRepo.findByTenVaiTro(dto.getTenVaiTro()));
 		nd.setVaiTro(vaiTro);
-		
+
 		return nguoiDungRepo.save(nd);
 	}
 

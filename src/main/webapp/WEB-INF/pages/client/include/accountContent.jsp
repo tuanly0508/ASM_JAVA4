@@ -7,6 +7,8 @@
 </head>
 <script src="<c:url value='/js/client/information.js'/>"></script>
 <script src="<c:url value='/js/client/password.js'/>"></script>
+<script src="<c:url value='/js/client/forgotPassword.js'/>"></script>
+<script src="<c:url value='/js/client/sendCodeEmail.js'/>"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -28,6 +30,7 @@
 				<br>
 				<p style="font-size: 20px">
 					<b>Thông tin tài khoản:</b>
+					<input hidden id="codeEmailSender" value="${user.getEmail()}" />
 				</p>
 				<br>
 				<h3 style="line-height: 2;">
@@ -38,11 +41,18 @@
 					<span style="font-weight: bold">Email: </span>${user.getEmail()}</h3>
 				<h3 style="line-height: 2;">
 					<span style="font-weight: bold"> Địa chỉ: </span>${user.getDiaChi()}</h3>
-				<br> <a class="btn btn-primary" data-toggle="modal"
-					data-target="#modalInformation">Cập nhật thông tin cá nhân</a>
-				&nbsp; &nbsp; &nbsp; <a class="btn btn-danger" data-toggle="modal"
-					data-target="#modalChangePassword">Đổi mật khẩu</a> <br> <br>
-				<br>
+				<br> 
+				<a class="btn btn-primary" data-toggle="modal"
+					data-target="#modalInformation">Cập nhật thông tin cá nhân
+				</a>
+				&nbsp; &nbsp; &nbsp; 
+				<a class="btn btn-danger" data-toggle="modal"
+					data-target="#modalChangePassword">Đổi mật khẩu
+				</a> 
+				&nbsp; &nbsp; &nbsp;
+				<a class="btn btn-danger" onClick="sendCodeEmail()" data-toggle="modal" data-target="#modalForgotPassword">Quên mật khẩu
+				</a>
+				<br> <br> <br>
 				<h3>
 					<b>Lịch sử mua hàng:</b>
 				</h3>
@@ -193,7 +203,43 @@
 	</div>
 
 	<!-- Modal đổi pass -->
-
+	
+	<!-- Forgot password -->
+	<div class="modal fade" id="modalForgotPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">
+						<b>Thay đổi mật khẩu</b>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group ">
+						<label style="line-height: 2">Code*:</label><br> <label id="codeWarning"
+							style="color: red"></label> <input class="form-control" id="code" name="code" type="text">
+					</div>
+					<div class="form-group ">
+						<label style="line-height: 2">Mật khẩu mới*:</label><br> <label id="newPassWarning"
+							style="color: red"></label> <input class="form-control" id="newPass" name="newPass" type="password">
+					</div>
+					<div class="form-group ">
+						<label style="line-height: 2">Xác nhận lại mật khẩu mới*:</label><br>
+						<label id="rePassWarning" style="color: red"></label> <input class="form-control" id="rePass"
+							name="rePass" type="password">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+					<button type="button" class="btn btn-primary" onClick="forgotPass()">Đổi mật khẩu</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- forgot password -->
 
 </body>
 </html>

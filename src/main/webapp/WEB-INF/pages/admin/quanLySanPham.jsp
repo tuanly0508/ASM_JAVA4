@@ -22,8 +22,8 @@
 		<h3 class="page-header">Quản lý Sản Phẩm</h3>
 
 		<div class="form-group form-inline">
-			<label for="sel1">THÊM MỚI SẢN PHẨM (THEO DANH MỤC): </label> <select
-				id="danhMucDropdown" class="form-control">
+			<label for="sel1">THÊM MỚI SẢN PHẨM (THEO DANH MỤC): </label> 
+			<select id="danhMucDropdown" class="form-control">
 				<c:forEach var="danhMuc" items="${listDanhMuc}">
 					<option value="${danhMuc.id }">${danhMuc.tenDanhMuc }</option>
 				</c:forEach>
@@ -77,8 +77,6 @@
 			<button type="button" class="btn btn-primary" id="btnDuyetSanPham">Duyệt
 				sản phẩm</button>
 		</form>
-
-		
 
 		<hr />
 		<table class="table table-hover sanPhamTable "
@@ -222,7 +220,6 @@
 		</form>
 	</div>
 
-
 	<div class="row col-md-6">
 		<form class="otherForm" id="otherForm">
 			<div class="modal fade otherModal" tabindex="-1" role="dialog">
@@ -309,6 +306,7 @@
 		</form>
 	</div>
 
+	<!-- detail product -->
 	<div class="row col-md-10">
 		<form class="chiTietForm">
 			<div class="modal fade" id="chiTietModal" tabindex="-1" role="dialog"

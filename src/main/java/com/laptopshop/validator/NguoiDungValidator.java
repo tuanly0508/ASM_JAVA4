@@ -47,6 +47,10 @@ public class NguoiDungValidator implements Validator {
 			errors.rejectValue("email", "error.email", "Địa chỉ email đã được sử dụng");
 		}
 
+		if (nguoiDungService.findByCodeEmail(user.getCodeEmail()) == null) {
+			errors.rejectValue("code", "error.code", "Code không phù hợp");
+		}
+
 		// check password trống hay không
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.password", "Password không được bỏ trống");
 

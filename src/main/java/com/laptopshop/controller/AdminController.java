@@ -78,7 +78,7 @@ public class AdminController {
 
 	@GetMapping("/post")
 	public String quanLyPostPage() {
-		return "admin/post";
+		return "admin/quanLyPost";
 	}
 
 	@GetMapping("/nhan-hieu")

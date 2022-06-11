@@ -20,8 +20,8 @@
 				khoản</button>
 			<hr>
 			<div class="form-group form-inline">
-				<label for="sel1"><strong>Lọc tài khoản:</strong> </label> <select
-					id="vaiTro" class="form-control">
+				<label for="sel1"><strong>Lọc tài khoản:</strong> </label> 
+				<select id="vaiTro" class="form-control">
 					<c:forEach var="vaiTro" items="${listVaiTro}">
 						<option value="${vaiTro.tenVaiTro }">${vaiTro.tenVaiTro }</option>
 					</c:forEach>

@@ -13,6 +13,8 @@ public interface NguoiDungService {
 
 	NguoiDung findByEmail(String email);
 
+	NguoiDung findByCodeEmail(String code);
+
 	NguoiDung findByConfirmationToken(String confirmationToken);
 
 	NguoiDung saveUserForMember(NguoiDung nd);
@@ -26,7 +28,7 @@ public interface NguoiDungService {
 	Page<NguoiDung> getNguoiDungByVaiTro(Set<VaiTro> vaiTro, int page);
 
 	List<NguoiDung> getNguoiDungByVaiTro(Set<VaiTro> vaiTro);
-	
+
 	NguoiDung saveUserForAdmin(TaiKhoanDTO dto);
 
 	void deleteById(long id);

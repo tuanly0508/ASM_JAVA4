@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import java.nio.file.Path;
+import java.io.File;
+import java.nio.file.Paths;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.laptopshop.entities.DanhMuc;
+import org.springframework.web.multipart.MultipartFile;
 import com.laptopshop.entities.Post;
 import com.laptopshop.entities.ResponseObject;
 import com.laptopshop.service.PostService;
@@ -69,6 +71,7 @@ public class PostApi {
             ;
         } else {
             postService.save(newPost);
+            // saveImageForPost(ro, request);
             ro.setData(newPost);
             ro.setStatus("success");
         }
@@ -103,5 +106,22 @@ public class PostApi {
         request.getSession().setAttribute("listDanhMuc", postService.getAllPost());
         ;
         return "OK !";
+    }
+
+    public void saveImageForPost(Post sp, HttpServletRequest request) {
+
+        MultipartFile postImage = sp.getHinhAnh();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        Path path = Paths.get(rootDirectory + "/resources/images/" + sp.getId() + ".png");
+        System.out.println(postImage != null && !postImage.isEmpty());
+        if (postImage != null && !postImage.isEmpty()) {
+
+            try {
+                postImage.transferTo(new File(path.toString()));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                throw new RuntimeException("Post image saving failed", ex);
+            }
+        }
     }
 }
