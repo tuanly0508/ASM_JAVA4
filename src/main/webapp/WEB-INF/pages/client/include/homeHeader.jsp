@@ -134,6 +134,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </li>
 
             <li><a href="<%=request.getContextPath()%>/contact">Liên hệ</a></li>
+
+            <li><a href="<%=request.getContextPath()%>/new">Tin tức</a></li>
           </ul>
         </div>
         <div class="clear"></div>

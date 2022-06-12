@@ -12,13 +12,6 @@
 		<link rel="stylesheet" href="Frontend/css/responsiveslides.css">
 		<script src="Frontend/js/jquery.min.js"></script>
 		<script src="Frontend/js/responsiveslides.min.js"></script>
-		
-		
-		
-    
- 
-		
-		
 		  <script>
 		    // You can also use "$(window).load(function() {"
 			    $(function () {
